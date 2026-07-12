@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Login – Like Hero To Zero</title>
+</h:head>
+
+<h:body>
+    <h1>🔐 Wissenschaftler Login</h1>
+
+    <h:form>
+        <p:messages showDetail="true"/>
+
+        <p:panel header="Anmelden">
+
+            <h:panelGrid columns="2" cellpadding="5">
+
+                <h:outputLabel value="Benutzername:"/>
+                <p:inputText value="#{authBean.username}" required="true"
+                             requiredMessage="Benutzername ist erforderlich"/>
+
+                <h:outputLabel value="Passwort:"/>
+                <p:password value="#{authBean.password}" required="true"
+                            requiredMessage="Passwort ist erforderlich"/>
+
+                <h:outputText value=""/>
+                <p:commandButton value="Anmelden" action="#{authBean.login}"
+                                 update="@form"/>
+
+            </h:panelGrid>
+
+        </p:panel>
+
+    </h:form>
+
+    <br/>
+    <h:link value="← Zurück zur Startseite" outcome="/index.xhtml"/>
+
+</h:body>
+</html>

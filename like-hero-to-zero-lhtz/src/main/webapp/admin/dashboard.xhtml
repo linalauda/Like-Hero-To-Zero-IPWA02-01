@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Admin Dashboard – Like Hero To Zero</title>
+</h:head>
+
+<h:body>
+    <h1>🔬 Wissenschaftler Dashboard</h1>
+    <p>Willkommen, <b>#{authBean.loggedInScientist.username}</b>!</p>
+    <h:form>
+        <p:commandButton value="Abmelden" action="#{authBean.logout}"/>
+    </h:form>
+
+    <h2>Neuen CO₂-Eintrag hinzufügen</h2>
+    <h:form>
+        <p:messages showDetail="true"/>
+        <h:panelGrid columns="2" cellpadding="5">
+
+            <h:outputLabel value="Land:"/>
+            <p:selectOneMenu value="#{adminBean.newEntry.country}" converter="countryConverter">
+                <f:selectItem itemLabel="-- Land wählen --" itemValue="#{null}"/>
+                <f:selectItems value="#{adminBean.countries}"
+                               var="c"
+                               itemLabel="#{c.name}"
+                               itemValue="#{c}"/>
+            </p:selectOneMenu>
+
+            <h:outputLabel value="Jahr:"/>
+            <p:inputText value="#{adminBean.newEntry.year}" required="true"/>
+
+            <h:outputLabel value="CO₂-Wert (kt):"/>
+            <p:inputText value="#{adminBean.newEntry.co2Kt}" required="true"/>
+
+            <h:outputText value=""/>
+            <p:commandButton value="Speichern" action="#{adminBean.saveEntry}"
+                             update="@form"/>
+        </h:panelGrid>
+    </h:form>
+
+    <h2>Alle Einträge</h2>
+    <h:form id="tableForm">
+        <p:messages showDetail="true"/>
+        <p:dataTable value="#{adminBean.allEntries}" var="entry"
+                     paginator="true" rows="10"
+                     emptyMessage="Keine Einträge vorhanden">
+            <p:column headerText="Land">
+                <h:outputText value="#{entry.country.name}"/>
+            </p:column>
+            <p:column headerText="Jahr">
+                <h:outputText value="#{entry.year}"/>
+            </p:column>
+            <p:column headerText="CO₂ (kt)">
+                <h:outputText value="#{entry.co2Kt}"/>
+            </p:column>
+            <p:column headerText="Aktionen">
+                <p:commandButton value="Bearbeiten"
+                                 actionListener="#{adminBean.prepareEdit(entry)}"
+                                 update=":editForm"
+                                 oncomplete="PF('editDialog').show()"/>
+                <p:commandButton value="Löschen"
+                                 actionListener="#{adminBean.deleteEntry(entry)}"
+                                 update=":tableForm"
+                                 style="margin-left: 8px;">
+                    <p:confirm header="Löschen bestätigen"
+                               message="Diesen Eintrag wirklich löschen?"/>
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+    </h:form>
+
+    <p:confirmDialog global="true">
+        <p:commandButton value="Ja" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+        <p:commandButton value="Nein" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
+    </p:confirmDialog>
+
+    <p:dialog header="Eintrag bearbeiten" widgetVar="editDialog" modal="true">
+        <h:form id="editForm">
+            <h:panelGrid columns="2" cellpadding="5" rendered="#{adminBean.editingEntry != null}">
+                <h:outputLabel value="Land:"/>
+                <p:selectOneMenu value="#{adminBean.editingEntry.country}" converter="countryConverter">
+                    <f:selectItems value="#{adminBean.countries}"
+                                   var="c"
+                                   itemLabel="#{c.name}"
+                                   itemValue="#{c}"/>
+                </p:selectOneMenu>
+
+                <h:outputLabel value="Jahr:"/>
+                <p:inputText value="#{adminBean.editingEntry.year}"/>
+
+                <h:outputLabel value="CO₂-Wert (kt):"/>
+                <p:inputText value="#{adminBean.editingEntry.co2Kt}"/>
+
+                <h:outputText value=""/>
+                <p:commandButton value="Speichern"
+                                 actionListener="#{adminBean.saveEditedEntry}"
+                                 update=":tableForm"
+                                 oncomplete="if (!args.validationFailed) PF('editDialog').hide()"/>
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+
+    <br/>
+    <h:link value="← Zur Startseite" outcome="/index.xhtml"/>
+</h:body>
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Like Hero To Zero – CO₂ Emissionen</title>
+    <style>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .page-header h1 {
+            margin: 0;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <div class="page-header">
+        <h1>🌍 Like Hero To Zero</h1>
+        <h:link value="🔐 Wissenschaftler Login" outcome="/login.xhtml"/>
+    </div>
+
+    <h2>Weltweite CO₂-Emissionen</h2>
+
+    <p:dataTable value="#{co2ListBean.countries}" var="country"
+                 paginator="true" rows="20"
+                 emptyMessage="Keine Daten verfügbar">
+
+        <p:column headerText="Land">
+            <h:outputText value="#{country.name}"/>
+        </p:column>
+
+        <p:column headerText="ISO-Code">
+            <h:outputText value="#{country.isoCode}"/>
+        </p:column>
+
+        <p:column headerText="CO₂ (kt) – aktuellster Wert">
+            <h:outputText value="#{co2ListBean.getLatestEmission(country) != null
+                ? co2ListBean.getLatestEmission(country).co2Kt : 'Keine Daten'}"/>
+        </p:column>
+
+        <p:column headerText="Jahr">
+            <h:outputText value="#{co2ListBean.getLatestEmission(country) != null
+                ? co2ListBean.getLatestEmission(country).year : '-'}"/>
+        </p:column>
+
+        <p:column headerText="Details">
+            <h:link value="Details" outcome="/country.xhtml">
+                <f:param name="code" value="#{country.isoCode}"/>
+            </h:link>
+        </p:column>
+
+    </p:dataTable>
+
+</h:body>
+</html>

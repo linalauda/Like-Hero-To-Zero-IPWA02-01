@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/like-hero-to-zero.iml" filepath="$PROJECT_DIR$/.idea/like-hero-to-zero.iml" />
+      <module fileurl="file://$PROJECT_DIR$/like-hero-to-zero-lhtz.iml" filepath="$PROJECT_DIR$/like-hero-to-zero-lhtz.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Land Details – Like Hero To Zero</title>
+</h:head>
+
+<h:body>
+    <f:metadata>
+        <f:viewParam name="code" value="#{countryDetailBean.isoCode}"/>
+    </f:metadata>
+
+    <h1>🌍 Länderdetails</h1>
+
+    <h:panelGroup rendered="#{countryDetailBean.country != null}">
+
+        <h2>#{countryDetailBean.country.name} (#{countryDetailBean.country.isoCode})</h2>
+
+        <h:panelGroup rendered="#{countryDetailBean.latestEntry != null}">
+            <p:panel header="Aktuellster CO₂-Wert">
+                <h:panelGrid columns="2" cellpadding="8">
+                    <h:outputText value="Jahr:"/>
+                    <h:outputText value="#{countryDetailBean.latestEntry.year}"/>
+
+                    <h:outputText value="CO₂-Ausstoß (kt):"/>
+                    <h:outputText value="#{countryDetailBean.latestEntry.co2Kt}"/>
+                </h:panelGrid>
+            </p:panel>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{countryDetailBean.latestEntry == null}">
+            <p>Keine CO₂-Daten für dieses Land verfügbar.</p>
+        </h:panelGroup>
+
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{countryDetailBean.country == null}">
+        <p>Land nicht gefunden.</p>
+    </h:panelGroup>
+
+    <br/>
+    <h:link value="← Zurück zur Übersicht" outcome="/index.xhtml"/>
+
+</h:body>
+</html>
