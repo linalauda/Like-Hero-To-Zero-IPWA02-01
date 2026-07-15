@@ -35,4 +35,30 @@ public class Co2Service {
     public List<Co2Entry> getAllEntries() {
         return co2Repository.findAll();
     }
+
+    public List<Co2Entry> getPendingEntries() {
+        return co2Repository.findPending();
+    }
+
+    public void approveEntry(Long entryId) {
+        Co2Entry entry = co2Repository.findAll().stream()
+                .filter(e -> e.getId().equals(entryId))
+                .findFirst()
+                .orElse(null);
+        if (entry != null) {
+            entry.setStatus(Co2Entry.EntryStatus.APPROVED);
+            co2Repository.save(entry);
+        }
+    }
+
+    public void rejectEntry(Long entryId) {
+        Co2Entry entry = co2Repository.findAll().stream()
+                .filter(e -> e.getId().equals(entryId))
+                .findFirst()
+                .orElse(null);
+        if (entry != null) {
+            entry.setStatus(Co2Entry.EntryStatus.REJECTED);
+            co2Repository.save(entry);
+        }
+    }
 }

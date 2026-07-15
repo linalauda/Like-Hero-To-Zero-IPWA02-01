@@ -25,6 +25,11 @@ public class Co2Repository {
                 .getResultList();
     }
 
+    public List<Co2Entry> findPending() {
+        return em.createNamedQuery("Co2Entry.findPending", Co2Entry.class)
+                .getResultList();
+    }
+
     @Transactional
     public void save(Co2Entry entry) {
         if (entry.getId() == null) {

@@ -26,6 +26,7 @@ public class DataEntryService {
         if (entry.getCo2Kt() < 0) {
             throw new IllegalArgumentException("CO2-Wert darf nicht negativ sein");
         }
+        entry.setStatus(Co2Entry.EntryStatus.PENDING);
         co2Repository.save(entry);
     }
 

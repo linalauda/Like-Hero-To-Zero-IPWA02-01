@@ -7,9 +7,14 @@ import java.time.LocalDateTime;
 @Table(name = "co2_entry")
 @NamedQueries({
         @NamedQuery(name = "Co2Entry.findAll", query = "SELECT c FROM Co2Entry c ORDER BY c.year DESC"),
-        @NamedQuery(name = "Co2Entry.findLatestByCountry", query = "SELECT c FROM Co2Entry c WHERE c.country.id = :countryId ORDER BY c.year DESC")
+        @NamedQuery(name = "Co2Entry.findLatestByCountry", query = "SELECT c FROM Co2Entry c WHERE c.country.id = :countryId AND c.status = de.lhtz.entity.Co2Entry$EntryStatus.APPROVED ORDER BY c.year DESC"),
+        @NamedQuery(name = "Co2Entry.findPending", query = "SELECT c FROM Co2Entry c WHERE c.status = de.lhtz.entity.Co2Entry$EntryStatus.PENDING ORDER BY c.createdAt ASC")
 })
 public class Co2Entry {
+
+    public enum EntryStatus {
+        PENDING, APPROVED, REJECTED
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +32,10 @@ public class Co2Entry {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false, length = 20)
+    private EntryStatus status = EntryStatus.PENDING;
 
     @PrePersist
     public void prePersist() {
@@ -49,4 +58,7 @@ public class Co2Entry {
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public EntryStatus getStatus() { return status; }
+    public void setStatus(EntryStatus status) { this.status = status; }
 }
