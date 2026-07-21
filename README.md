@@ -4,7 +4,7 @@ A Java EE web application for visualizing worldwide CO2 emissions data.
 
 Case study project for the course IPWA02-01 (Programming of Industrial Information Systems with Java EE), IU International University of Applied Sciences. Built iteratively following an agile approach, with a prioritized product backlog (MoSCoW method).
 
-## What does this application do?
+## What this project does
 
 Like Hero To Zero shows the latest available CO2 emissions data for countries worldwide, no login required. It also includes a login-protected backend where registered scientists can submit new data, and a second, separately protected area where a publisher role reviews and approves submissions before they go live.
 
@@ -14,6 +14,11 @@ Key features:
 - Scientist login area to add, edit, and delete CO2 data entries
 - Publisher login area to approve or reject newly submitted entries before they become public
 - Passwords are hashed with BCrypt, never stored in plain text
+
+
+## Why this project is useful
+
+Environmental data is often locked behind dashboards that are hard to navigate or require an account just to look at a single number. This project keeps the public side completely open, while still giving contributors (scientists) and reviewers (publishers) a proper, auditable workflow for adding and correcting data. It also serves as a reference implementation of a classic Java EE stack: JSF, CDI, JPA/Hibernate, and MySQL, wired together end to end, including authentication, role separation, and a review/approval workflow.
 
 ## Tech stack
 
@@ -28,9 +33,21 @@ Key features:
 | Application server | WildFly |
 | Build tool | Maven |
 
-## Prerequisites
+## Tech stack
+Layer               | Technology
+--------------------|-------------
+Frontend            | JavaServer Faces (JSF), PrimeFaces
+Component model / DI| CDI (Contexts and Dependency Injection)
+Persistence         | JPA with Hibernate
+Database            | MySQL
+Password hashing    | jBCrypt
+Access control      | Servlet filters (AuthFilter, PublisherAuthFilter)
+Application server  | WildFly
+Build tool          | Maven
 
-To run this project locally, you need:
+# How to get started
+
+##Prerequisites
 
 - Java Development Kit (JDK 11 or later)
 - Maven
@@ -52,7 +69,7 @@ cd Like-Hero-To-Zero-IPWA02-01/like-hero-to-zero-lhtz
 
 ### 2. Create the database
 
-Log into your local MySQL server and create a dedicated database and user. Replace `<your_password>` with a password of your own choice — never reuse a password you use elsewhere.
+Log into your local MySQL server and create a dedicated database and user. Replace `<your_password>` with a password of your own choice.
 
 ```sql
 CREATE DATABASE lhtz_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -180,9 +197,15 @@ https://data360.worldbank.org/en/dataset/OWID_CB
 
 Indicator used: `OWID_CB_CO2` (annual CO2 emissions per country). Values were converted from million tonnes (Mt) to kilotonnes (kt) and imported for the period from 1960 onward.
 
+## Where to get help
+
+This is a personal, single-author academic project and is not set up for external contributions. If you have a question about the code or run into an issue while trying it out, feel free to open a GitHub Issue in this repository — I check it from time to time and I'm happy to explain any part of the implementation.
+
 ## License & contact
 
 This project was built as a student case study and is shared publicly as a portfolio piece. Feel free to explore the code.
 
-Lina Lauda
-GitHub: [@linalauda](https://github.com/linalauda)
+##Maintainer
+
+Lina Lauda GitHub: @linalauda
+
