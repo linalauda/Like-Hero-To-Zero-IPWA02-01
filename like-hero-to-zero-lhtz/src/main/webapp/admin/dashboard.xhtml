@@ -18,7 +18,7 @@
 
     <h2>Neuen CO₂-Eintrag hinzufügen</h2>
     <h:form>
-        <p:messages showDetail="true"/>
+        <p:messages/>
         <h:panelGrid columns="2" cellpadding="5">
 
             <h:outputLabel value="Land:"/>
@@ -44,7 +44,7 @@
 
     <h2>Alle Einträge</h2>
     <h:form id="tableForm">
-        <p:messages showDetail="true"/>
+        <p:messages/>
         <p:dataTable value="#{adminBean.allEntries}" var="entry"
                      paginator="true" rows="10"
                      emptyMessage="Keine Einträge vorhanden">
