@@ -20,18 +20,6 @@ Key features:
 
 Environmental data is often locked behind dashboards that are hard to navigate or require an account just to look at a single number. This project keeps the public side completely open, while still giving contributors (scientists) and reviewers (publishers) a proper, auditable workflow for adding and correcting data. It also serves as a reference implementation of a classic Java EE stack: JSF, CDI, JPA/Hibernate, and MySQL, wired together end to end, including authentication, role separation, and a review/approval workflow.
 
-## Tech stack
-
-| Layer | Technology |
-|---|---|
-| Frontend | JavaServer Faces (JSF), PrimeFaces |
-| Component model / DI | CDI (Contexts and Dependency Injection) |
-| Persistence | JPA with Hibernate |
-| Database | MySQL |
-| Password hashing | jBCrypt |
-| Access control | Servlet filters (AuthFilter, PublisherAuthFilter) |
-| Application server | WildFly |
-| Build tool | Maven |
 
 ## Tech stack
 Layer               | Technology
@@ -205,7 +193,7 @@ This is a personal, single-author academic project and is not set up for externa
 
 This project was built as a student case study and is shared publicly as a portfolio piece. Feel free to explore the code.
 
-##Maintainer
+## Maintainer
 
 Lina Lauda GitHub: @linalauda
 
